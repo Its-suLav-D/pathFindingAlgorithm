@@ -6,6 +6,13 @@ Press B to Start = Breath First Search
 
 > Working on Dijsktar Algorithm 
 
+# Requirements (pyGame)
+
+Windows 
+    pip install pygame 
+Mac 
+   pip3 install pygame 
+
 
 # A* Algorithm 
 Heuristic Meaning = Enabling someone to discover or learn something for themeselves 
