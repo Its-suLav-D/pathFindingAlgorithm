@@ -148,8 +148,8 @@ def astar(draw,grid,start,end):
     # Draw is a function 
     count = 0 
     # Get smallest ELement Of out it. Works like a Min-Heap 
-    open_set = PriorityQueue()
-    open_set.put((0,count,start))
+    queue = PriorityQueue()
+    queue.put((0,count,start))
 
     # Track of Visited Node 
     came_from = {}
@@ -161,16 +161,16 @@ def astar(draw,grid,start,end):
     f_score[start] = manhattan_distance(start.get_pos(),end.get_pos())
 
     # Priority Queue Doesn't have a Hash Function so, we need another data Stucture to do the task 
-    open_set_hash = {start}  
+    queue_cache = {start}  
 
-    while not open_set.empty():
+    while not queue.empty():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
         # 2 Represents the node
-        current = open_set.get()[2]
-        open_set_hash.remove(current)
+        current = queue.get()[2]
+        queue_cache.remove(current)
 
         # If this was true, than we found the shortest path, and basically need to reconstruct the path 
         if current == end: 
@@ -186,10 +186,10 @@ def astar(draw,grid,start,end):
                 came_from[neighbor] = current 
                 g_score[neighbor] = temp_g_score 
                 f_score[neighbor] = temp_g_score + manhattan_distance(neighbor.get_pos(), end.get_pos()) 
-                if neighbor not in open_set_hash:
+                if neighbor not in queue_cache:
                     count+=1 
-                    open_set.put((f_score[neighbor],count,neighbor))
-                    open_set_hash.add(neighbor)
+                    queue.put((f_score[neighbor],count,neighbor))
+                    queue_cache.add(neighbor)
                     neighbor.make_open() 
         
         draw()
